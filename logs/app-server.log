@@ -1,0 +1,234 @@
+2024-03-11 00:00:01.023 INFO  [main] Starting ApplicationServer v3.2.1 on port 8080
+2024-03-11 00:00:01.245 INFO  [main] Loading configuration from /etc/app/config.yml
+2024-03-11 00:00:01.389 INFO  [main] Connected to Redis cluster at redis-cluster:6379
+2024-03-11 00:00:01.502 INFO  [main] Connected to PostgreSQL primary at pg-primary:5432
+2024-03-11 00:00:01.611 INFO  [main] Initializing connection pool: min=10 max=100 timeout=30s
+2024-03-11 00:00:02.014 INFO  [main] Application startup complete. Ready to serve traffic.
+2024-03-11 00:01:12.341 INFO  [http-nio-8080-exec-1] GET /api/health 200 OK (12ms)
+2024-03-11 00:01:15.892 INFO  [http-nio-8080-exec-2] GET /api/users/profile 200 OK (45ms)
+2024-03-11 00:01:18.003 INFO  [http-nio-8080-exec-3] POST /api/orders 201 CREATED (78ms)
+2024-03-11 00:02:10.441 INFO  [http-nio-8080-exec-4] GET /api/products 200 OK (33ms)
+2024-03-11 00:02:44.882 INFO  [http-nio-8080-exec-5] PUT /api/users/123/preferences 200 OK (22ms)
+2024-03-11 00:03:01.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 00:03:01.234 INFO  [scheduler] Deleted 142 expired sessions
+2024-03-11 00:05:22.771 INFO  [http-nio-8080-exec-6] GET /api/orders/history 200 OK (55ms)
+2024-03-11 00:07:33.992 INFO  [http-nio-8080-exec-7] POST /api/auth/login 200 OK (101ms)
+2024-03-11 00:10:00.000 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 00:10:02.341 INFO  [scheduler] Synced 1,204 inventory records
+2024-03-11 00:15:45.221 INFO  [http-nio-8080-exec-8] GET /api/health 200 OK (9ms)
+2024-03-11 00:18:22.114 INFO  [http-nio-8080-exec-9] GET /api/users 200 OK (41ms)
+2024-03-11 00:22:11.003 INFO  [http-nio-8080-exec-10] POST /api/payments 201 CREATED (134ms)
+2024-03-11 00:28:00.001 INFO  [scheduler] Running scheduled job: send-email-notifications
+2024-03-11 00:28:03.992 INFO  [scheduler] Sent 89 notification emails
+2024-03-11 00:30:14.771 INFO  [http-nio-8080-exec-1] GET /api/dashboard 200 OK (62ms)
+2024-03-11 00:35:22.003 WARNING [connection-pool] Pool utilization at 72% (72/100 connections active)
+2024-03-11 00:35:22.114 WARNING [connection-pool] Slow query detected on pg-primary: SELECT * FROM orders WHERE user_id=? took 1823ms (threshold: 500ms)
+2024-03-11 00:35:23.441 INFO  [http-nio-8080-exec-2] GET /api/orders 200 OK (1891ms)
+2024-03-11 00:36:00.882 WARNING [connection-pool] Pool utilization at 81% (81/100 connections active)
+2024-03-11 00:36:01.003 WARNING [connection-pool] Slow query detected on pg-primary: SELECT * FROM orders WHERE user_id=? took 2201ms (threshold: 500ms)
+2024-03-11 00:36:01.114 WARNING [connection-pool] Slow query detected on pg-primary: SELECT * FROM products JOIN inventory took 3102ms (threshold: 500ms)
+2024-03-11 00:36:02.221 WARNING [connection-pool] Pool utilization at 89% (89/100 connections active)
+2024-03-11 00:36:03.334 ERROR  [connection-pool] Pool utilization at 95% (95/100 connections active) - approaching limit!
+2024-03-11 00:36:04.441 ERROR  [connection-pool] Failed to acquire DB connection after 30s timeout: com.zaxxer.hikari.pool.HikariPool$PoolTimeoutException: Connection is not available, request timed out after 30000ms
+2024-03-11 00:36:04.552 ERROR  [http-nio-8080-exec-3] GET /api/orders FAILED with HTTP 500 - Database connection timeout
+2024-03-11 00:36:04.663 ERROR  [http-nio-8080-exec-4] POST /api/orders FAILED with HTTP 500 - Database connection timeout
+2024-03-11 00:36:04.774 ERROR  [http-nio-8080-exec-5] GET /api/users FAILED with HTTP 500 - Database connection timeout
+2024-03-11 00:36:05.001 ERROR  [connection-pool] Pool exhausted! All 100 connections in use. New requests will be rejected.
+2024-03-11 00:36:05.112 CRITICAL [connection-pool] DATABASE CONNECTION POOL EXHAUSTED - Service degraded
+2024-03-11 00:36:05.223 ERROR  [http-nio-8080-exec-6] POST /api/payments FAILED with HTTP 500 - Database connection timeout
+2024-03-11 00:36:05.334 ERROR  [http-nio-8080-exec-7] GET /api/dashboard FAILED with HTTP 500 - Database connection timeout
+2024-03-11 00:36:05.445 ERROR  [http-nio-8080-exec-8] GET /api/products FAILED with HTTP 500 - Database connection timeout
+2024-03-11 00:36:05.556 ERROR  [http-nio-8080-exec-9] POST /api/auth/login FAILED with HTTP 500 - Database connection timeout
+2024-03-11 00:36:06.001 CRITICAL [kubernetes] Pod app-server-7f9d4b-xk2p9 memory usage 498Mi/512Mi (97%) - OOMKill imminent
+2024-03-11 00:36:06.223 ERROR  [kubernetes] Pod app-server-7f9d4b-xk2p9 OOMKilled - memory limit 512Mi exceeded
+2024-03-11 00:36:06.334 CRITICAL [kubernetes] Pod app-server-7f9d4b-xk2p9 terminated. Restarting...
+2024-03-11 00:36:08.001 INFO  [kubernetes] Pod app-server-7f9d4b-nw3q1 starting (restart #1)
+2024-03-11 00:36:10.441 INFO  [kubernetes] Pod app-server-7f9d4b-nw3q1 readiness probe passed
+2024-03-11 00:36:10.552 INFO  [main] Application startup complete. Ready to serve traffic.
+2024-03-11 00:36:12.771 INFO  [http-nio-8080-exec-1] GET /api/health 200 OK (11ms)
+2024-03-11 00:37:00.001 INFO  [http-nio-8080-exec-2] GET /api/orders 200 OK (48ms)
+2024-03-11 00:38:22.334 INFO  [http-nio-8080-exec-3] POST /api/payments 201 CREATED (112ms)
+2024-03-11 00:40:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 00:40:01.221 INFO  [scheduler] Deleted 98 expired sessions
+2024-03-11 00:45:14.882 INFO  [http-nio-8080-exec-4] GET /api/users/profile 200 OK (38ms)
+2024-03-11 00:50:22.114 INFO  [http-nio-8080-exec-5] GET /api/dashboard 200 OK (57ms)
+2024-03-11 01:00:00.001 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 01:00:02.441 INFO  [scheduler] Synced 1,198 inventory records
+2024-03-11 01:15:33.992 INFO  [http-nio-8080-exec-6] GET /api/health 200 OK (8ms)
+2024-03-11 01:22:11.003 INFO  [http-nio-8080-exec-7] GET /api/products 200 OK (29ms)
+2024-03-11 01:30:45.221 INFO  [http-nio-8080-exec-8] POST /api/orders 201 CREATED (71ms)
+2024-03-11 01:45:00.001 INFO  [scheduler] Running scheduled job: send-email-notifications
+2024-03-11 01:45:03.114 INFO  [scheduler] Sent 12 notification emails
+2024-03-11 02:00:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 02:00:01.334 INFO  [scheduler] Deleted 54 expired sessions
+2024-03-11 02:10:22.771 INFO  [http-nio-8080-exec-9] GET /api/users 200 OK (33ms)
+2024-03-11 02:15:44.882 INFO  [http-nio-8080-exec-10] GET /api/orders/history 200 OK (49ms)
+2024-03-11 02:22:33.003 INFO  [http-nio-8080-exec-1] POST /api/auth/login 200 OK (88ms)
+2024-03-11 02:30:00.001 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 02:30:02.221 INFO  [scheduler] Synced 1,201 inventory records
+2024-03-11 02:45:11.334 WARNING [security] Failed login attempt for user admin@company.com from IP 192.168.1.45 (attempt 1/5)
+2024-03-11 02:45:13.441 WARNING [security] Failed login attempt for user admin@company.com from IP 192.168.1.45 (attempt 2/5)
+2024-03-11 02:45:15.552 WARNING [security] Failed login attempt for user admin@company.com from IP 192.168.1.45 (attempt 3/5)
+2024-03-11 02:45:17.663 WARNING [security] Failed login attempt for user admin@company.com from IP 192.168.1.45 (attempt 4/5)
+2024-03-11 02:45:19.774 ERROR  [security] ACCOUNT LOCKED: admin@company.com - 5 consecutive failed login attempts from IP 192.168.1.45
+2024-03-11 02:45:20.001 WARNING [security] Possible brute-force attack detected from IP 192.168.1.45 - triggering rate limiter
+2024-03-11 03:00:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 03:00:01.221 INFO  [scheduler] Deleted 33 expired sessions
+2024-03-11 03:15:22.334 INFO  [http-nio-8080-exec-2] GET /api/health 200 OK (10ms)
+2024-03-11 03:30:44.441 INFO  [http-nio-8080-exec-3] GET /api/products 200 OK (27ms)
+2024-03-11 03:45:11.552 INFO  [http-nio-8080-exec-4] POST /api/orders 201 CREATED (69ms)
+2024-03-11 04:00:00.001 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 04:00:02.114 INFO  [scheduler] Synced 1,195 inventory records
+2024-03-11 04:15:33.223 INFO  [http-nio-8080-exec-5] GET /api/users/profile 200 OK (42ms)
+2024-03-11 04:22:44.334 INFO  [http-nio-8080-exec-6] GET /api/dashboard 200 OK (58ms)
+2024-03-11 04:30:00.001 INFO  [scheduler] Running scheduled job: send-email-notifications
+2024-03-11 04:30:03.441 INFO  [scheduler] Sent 7 notification emails
+2024-03-11 04:45:22.552 INFO  [http-nio-8080-exec-7] GET /api/orders/history 200 OK (51ms)
+2024-03-11 05:00:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 05:00:01.114 INFO  [scheduler] Deleted 21 expired sessions
+2024-03-11 05:15:33.223 INFO  [http-nio-8080-exec-8] GET /api/health 200 OK (9ms)
+2024-03-11 05:30:44.334 INFO  [http-nio-8080-exec-9] POST /api/auth/login 200 OK (92ms)
+2024-03-11 05:45:11.441 INFO  [http-nio-8080-exec-10] GET /api/products 200 OK (31ms)
+2024-03-11 06:00:00.001 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 06:00:02.114 INFO  [scheduler] Synced 1,207 inventory records
+2024-03-11 06:10:22.223 INFO  [http-nio-8080-exec-1] POST /api/payments 201 CREATED (118ms)
+2024-03-11 06:22:33.334 INFO  [http-nio-8080-exec-2] GET /api/users 200 OK (36ms)
+2024-03-11 06:30:44.441 INFO  [http-nio-8080-exec-3] GET /api/dashboard 200 OK (54ms)
+2024-03-11 06:45:11.552 INFO  [http-nio-8080-exec-4] POST /api/orders 201 CREATED (74ms)
+2024-03-11 07:00:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 07:00:01.114 INFO  [scheduler] Deleted 67 expired sessions
+2024-03-11 07:15:22.223 INFO  [http-nio-8080-exec-5] GET /api/health 200 OK (11ms)
+2024-03-11 07:30:00.001 INFO  [scheduler] Running scheduled job: send-email-notifications
+2024-03-11 07:30:03.334 INFO  [scheduler] Sent 44 notification emails
+2024-03-11 07:45:44.441 INFO  [http-nio-8080-exec-6] GET /api/products 200 OK (28ms)
+2024-03-11 08:00:00.001 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 08:00:02.114 INFO  [scheduler] Synced 1,199 inventory records
+2024-03-11 08:15:11.223 INFO  [http-nio-8080-exec-7] GET /api/users/profile 200 OK (39ms)
+2024-03-11 08:22:33.334 INFO  [http-nio-8080-exec-8] GET /api/orders/history 200 OK (47ms)
+2024-03-11 08:30:44.441 INFO  [http-nio-8080-exec-9] POST /api/auth/login 200 OK (95ms)
+2024-03-11 08:45:11.552 INFO  [http-nio-8080-exec-10] GET /api/dashboard 200 OK (60ms)
+2024-03-11 09:00:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 09:00:01.114 INFO  [scheduler] Deleted 88 expired sessions
+2024-03-11 09:05:22.223 WARNING [jvm] GC overhead threshold exceeded: Full GC took 4.2s, heap usage 87%
+2024-03-11 09:05:23.334 WARNING [jvm] Heap memory usage 89% (890MB/1024MB) - consider increasing -Xmx
+2024-03-11 09:05:24.441 ERROR  [jvm] OutOfMemoryError: Java heap space
+java.lang.OutOfMemoryError: Java heap space
+	at java.util.Arrays.copyOf(Arrays.java:3210)
+	at java.util.ArrayList.grow(ArrayList.java:265)
+	at com.app.service.ReportService.generateMonthlyReport(ReportService.java:412)
+	at com.app.scheduler.ReportScheduler.run(ReportScheduler.java:88)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+2024-03-11 09:05:24.552 ERROR  [scheduler] Job generate-monthly-report FAILED: OutOfMemoryError
+2024-03-11 09:05:25.001 WARNING [jvm] GC pressure high - pausing application threads for emergency GC
+2024-03-11 09:05:27.114 INFO  [jvm] Emergency GC complete. Heap usage reduced to 61% (625MB/1024MB)
+2024-03-11 09:05:28.223 INFO  [http-nio-8080-exec-1] Service resumed after GC pause
+2024-03-11 09:15:33.334 INFO  [http-nio-8080-exec-2] GET /api/health 200 OK (13ms)
+2024-03-11 09:22:44.441 INFO  [http-nio-8080-exec-3] POST /api/orders 201 CREATED (77ms)
+2024-03-11 09:30:11.552 INFO  [http-nio-8080-exec-4] GET /api/products 200 OK (30ms)
+2024-03-11 09:45:22.001 INFO  [http-nio-8080-exec-5] GET /api/users 200 OK (35ms)
+2024-03-11 10:00:00.001 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 10:00:02.114 INFO  [scheduler] Synced 1,203 inventory records
+2024-03-11 10:15:33.223 INFO  [http-nio-8080-exec-6] GET /api/dashboard 200 OK (56ms)
+2024-03-11 10:22:44.334 INFO  [http-nio-8080-exec-7] POST /api/payments 201 CREATED (122ms)
+2024-03-11 10:30:11.441 INFO  [http-nio-8080-exec-8] GET /api/orders/history 200 OK (44ms)
+2024-03-11 10:45:22.552 INFO  [http-nio-8080-exec-9] POST /api/auth/login 200 OK (89ms)
+2024-03-11 11:00:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 11:00:01.114 INFO  [scheduler] Deleted 104 expired sessions
+2024-03-11 11:00:00.001 INFO  [scheduler] Running scheduled job: send-email-notifications
+2024-03-11 11:00:04.223 INFO  [scheduler] Sent 201 notification emails
+2024-03-11 11:15:33.334 INFO  [http-nio-8080-exec-10] GET /api/health 200 OK (10ms)
+2024-03-11 11:22:44.441 INFO  [http-nio-8080-exec-1] GET /api/products 200 OK (32ms)
+2024-03-11 11:30:11.552 INFO  [http-nio-8080-exec-2] POST /api/orders 201 CREATED (80ms)
+2024-03-11 11:45:22.001 INFO  [http-nio-8080-exec-3] GET /api/users/profile 200 OK (40ms)
+2024-03-11 12:00:00.001 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 12:00:02.114 INFO  [scheduler] Synced 1,211 inventory records
+2024-03-11 12:15:33.223 INFO  [http-nio-8080-exec-4] GET /api/dashboard 200 OK (59ms)
+2024-03-11 12:22:44.334 INFO  [http-nio-8080-exec-5] GET /api/orders 200 OK (43ms)
+2024-03-11 12:30:00.001 INFO  [http-nio-8080-exec-6] POST /api/payments 201 CREATED (115ms)
+2024-03-11 12:45:11.441 INFO  [http-nio-8080-exec-7] GET /api/health 200 OK (8ms)
+2024-03-11 13:00:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 13:00:01.114 INFO  [scheduler] Deleted 91 expired sessions
+2024-03-11 13:10:22.223 WARNING [ssl] TLS certificate for api.company.com expires in 14 days (expires: 2024-03-25)
+2024-03-11 13:10:22.334 WARNING [ssl] Action required: Renew certificate before expiry to avoid service disruption
+2024-03-11 13:15:33.441 INFO  [http-nio-8080-exec-8] GET /api/products 200 OK (29ms)
+2024-03-11 13:22:44.552 INFO  [http-nio-8080-exec-9] POST /api/auth/login 200 OK (91ms)
+2024-03-11 13:30:11.001 INFO  [http-nio-8080-exec-10] GET /api/users 200 OK (37ms)
+2024-03-11 13:45:22.114 INFO  [http-nio-8080-exec-1] GET /api/orders/history 200 OK (46ms)
+2024-03-11 14:00:00.001 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 14:00:02.223 INFO  [scheduler] Synced 1,208 inventory records
+2024-03-11 14:15:33.334 INFO  [http-nio-8080-exec-2] GET /api/dashboard 200 OK (61ms)
+2024-03-11 14:22:44.441 INFO  [http-nio-8080-exec-3] POST /api/payments 201 CREATED (119ms)
+2024-03-11 14:30:00.001 INFO  [http-nio-8080-exec-4] GET /api/health 200 OK (9ms)
+2024-03-11 14:45:11.552 INFO  [scheduler] Running scheduled job: send-email-notifications
+2024-03-11 14:45:04.001 INFO  [scheduler] Sent 178 notification emails
+2024-03-11 15:00:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 15:00:01.114 INFO  [scheduler] Deleted 112 expired sessions
+2024-03-11 15:15:22.223 INFO  [http-nio-8080-exec-5] POST /api/orders 201 CREATED (75ms)
+2024-03-11 15:22:33.334 INFO  [http-nio-8080-exec-6] GET /api/products 200 OK (31ms)
+2024-03-11 15:30:44.441 INFO  [http-nio-8080-exec-7] GET /api/users/profile 200 OK (41ms)
+2024-03-11 15:45:11.552 INFO  [http-nio-8080-exec-8] GET /api/orders 200 OK (45ms)
+2024-03-11 16:00:00.001 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 16:00:02.114 INFO  [scheduler] Synced 1,215 inventory records
+2024-03-11 16:10:22.223 WARNING [third-party] Stripe API response time degraded: 3200ms (threshold: 1000ms)
+2024-03-11 16:10:23.334 WARNING [third-party] Stripe API response time degraded: 4100ms (threshold: 1000ms)
+2024-03-11 16:10:24.441 ERROR  [third-party] Stripe API call FAILED: POST https://api.stripe.com/v1/charges - Connection timeout after 5000ms
+2024-03-11 16:10:24.552 ERROR  [payment-service] Payment processing failed for order #ORD-88234: Stripe gateway timeout
+2024-03-11 16:10:24.663 ERROR  [http-nio-8080-exec-9] POST /api/payments FAILED with HTTP 502 - Payment gateway unavailable
+2024-03-11 16:10:25.774 ERROR  [third-party] Stripe API call FAILED: POST https://api.stripe.com/v1/charges - Connection timeout after 5000ms
+2024-03-11 16:10:25.885 ERROR  [payment-service] Payment processing failed for order #ORD-88235: Stripe gateway timeout
+2024-03-11 16:10:25.996 ERROR  [http-nio-8080-exec-10] POST /api/payments FAILED with HTTP 502 - Payment gateway unavailable
+2024-03-11 16:10:30.001 WARNING [third-party] Stripe webhook delivery failing - retrying (attempt 1/3)
+2024-03-11 16:10:35.114 WARNING [third-party] Stripe webhook delivery failing - retrying (attempt 2/3)
+2024-03-11 16:10:40.223 ERROR  [third-party] Stripe webhook delivery FAILED after 3 attempts - manual reconciliation required
+2024-03-11 16:15:00.334 INFO  [third-party] Stripe API recovered - response time back to normal (245ms)
+2024-03-11 16:15:01.441 INFO  [payment-service] Payment processing resumed successfully
+2024-03-11 16:22:33.552 INFO  [http-nio-8080-exec-1] POST /api/payments 201 CREATED (248ms)
+2024-03-11 16:30:44.001 INFO  [http-nio-8080-exec-2] GET /api/health 200 OK (10ms)
+2024-03-11 16:45:11.114 INFO  [http-nio-8080-exec-3] GET /api/dashboard 200 OK (58ms)
+2024-03-11 17:00:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 17:00:01.223 INFO  [scheduler] Deleted 143 expired sessions
+2024-03-11 17:15:22.334 INFO  [http-nio-8080-exec-4] POST /api/orders 201 CREATED (72ms)
+2024-03-11 17:22:33.441 INFO  [http-nio-8080-exec-5] GET /api/products 200 OK (28ms)
+2024-03-11 17:30:44.552 INFO  [http-nio-8080-exec-6] GET /api/users 200 OK (34ms)
+2024-03-11 17:45:11.001 INFO  [http-nio-8080-exec-7] POST /api/auth/login 200 OK (94ms)
+2024-03-11 18:00:00.001 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 18:00:02.114 INFO  [scheduler] Synced 1,219 inventory records
+2024-03-11 18:00:00.001 INFO  [scheduler] Running scheduled job: send-email-notifications
+2024-03-11 18:00:04.223 INFO  [scheduler] Sent 312 notification emails
+2024-03-11 18:15:33.334 INFO  [http-nio-8080-exec-8] GET /api/orders/history 200 OK (48ms)
+2024-03-11 18:22:44.441 INFO  [http-nio-8080-exec-9] GET /api/health 200 OK (11ms)
+2024-03-11 18:30:11.552 INFO  [http-nio-8080-exec-10] GET /api/dashboard 200 OK (55ms)
+2024-03-11 18:45:22.001 INFO  [http-nio-8080-exec-1] POST /api/payments 201 CREATED (121ms)
+2024-03-11 19:00:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 19:00:01.114 INFO  [scheduler] Deleted 98 expired sessions
+2024-03-11 19:15:22.223 INFO  [http-nio-8080-exec-2] GET /api/products 200 OK (30ms)
+2024-03-11 19:22:33.334 INFO  [http-nio-8080-exec-3] POST /api/orders 201 CREATED (76ms)
+2024-03-11 19:30:44.441 INFO  [http-nio-8080-exec-4] GET /api/users/profile 200 OK (43ms)
+2024-03-11 19:45:11.552 INFO  [http-nio-8080-exec-5] GET /api/orders 200 OK (46ms)
+2024-03-11 20:00:00.001 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 20:00:02.114 INFO  [scheduler] Synced 1,222 inventory records
+2024-03-11 20:15:33.223 INFO  [http-nio-8080-exec-6] GET /api/health 200 OK (9ms)
+2024-03-11 20:22:44.334 INFO  [http-nio-8080-exec-7] POST /api/auth/login 200 OK (90ms)
+2024-03-11 20:30:11.441 INFO  [http-nio-8080-exec-8] GET /api/dashboard 200 OK (57ms)
+2024-03-11 20:45:22.552 INFO  [http-nio-8080-exec-9] GET /api/users 200 OK (38ms)
+2024-03-11 21:00:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 21:00:01.114 INFO  [scheduler] Deleted 76 expired sessions
+2024-03-11 21:00:00.001 INFO  [scheduler] Running scheduled job: send-email-notifications
+2024-03-11 21:00:04.223 INFO  [scheduler] Sent 89 notification emails
+2024-03-11 21:15:33.334 INFO  [http-nio-8080-exec-10] GET /api/products 200 OK (27ms)
+2024-03-11 21:22:44.441 INFO  [http-nio-8080-exec-1] POST /api/payments 201 CREATED (116ms)
+2024-03-11 21:30:11.552 INFO  [http-nio-8080-exec-2] GET /api/orders/history 200 OK (49ms)
+2024-03-11 21:45:22.001 INFO  [http-nio-8080-exec-3] POST /api/orders 201 CREATED (73ms)
+2024-03-11 22:00:00.001 INFO  [scheduler] Running scheduled job: sync-inventory
+2024-03-11 22:00:02.114 INFO  [scheduler] Synced 1,218 inventory records
+2024-03-11 22:15:33.223 INFO  [http-nio-8080-exec-4] GET /api/health 200 OK (10ms)
+2024-03-11 22:22:44.334 INFO  [http-nio-8080-exec-5] GET /api/dashboard 200 OK (56ms)
+2024-03-11 22:30:11.441 INFO  [http-nio-8080-exec-6] GET /api/users/profile 200 OK (40ms)
+2024-03-11 22:45:22.552 INFO  [http-nio-8080-exec-7] POST /api/auth/login 200 OK (93ms)
+2024-03-11 23:00:00.001 INFO  [scheduler] Running scheduled job: cleanup-expired-sessions
+2024-03-11 23:00:01.114 INFO  [scheduler] Deleted 65 expired sessions
+2024-03-11 23:15:22.223 INFO  [http-nio-8080-exec-8] GET /api/products 200 OK (29ms)
+2024-03-11 23:22:33.334 INFO  [http-nio-8080-exec-9] GET /api/orders 200 OK (44ms)
+2024-03-11 23:30:44.441 INFO  [http-nio-8080-exec-10] POST /api/payments 201 CREATED (120ms)
+2024-03-11 23:45:11.552 INFO  [http-nio-8080-exec-1] GET /api/users 200 OK (35ms)
+2024-03-11 23:59:59.001 INFO  [main] Daily summary: 8,421 requests served | 99.2% success rate | avg response 67ms

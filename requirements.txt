@@ -1,0 +1,7 @@
+# Currently used
+groq
+python-dotenv
+
+# Optional LLM providers (uncomment if needed later)
+# anthropic
+# google-generativeai

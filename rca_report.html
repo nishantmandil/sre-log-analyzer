@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SRE RCA Report — 2026-03-13 13:27:49</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d1117;
+    --surface: #161b22;
+    --surface2: #1c2128;
+    --border: #30363d;
+    --text: #e6edf3;
+    --text-muted: #7d8590;
+    --accent: #58a6ff;
+    --critical: #f85149;
+    --high: #f0883e;
+    --medium: #d29922;
+    --low: #3fb950;
+    --clean: #238636;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'IBM Plex Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d1117 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 40px 48px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(88,166,255,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .header-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .brand-icon {
+    width: 48px; height: 48px;
+    background: linear-gradient(135deg, #1f6feb, #388bfd);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    box-shadow: 0 4px 20px rgba(88,166,255,0.3);
+  }
+  .brand-title { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  .brand-sub { font-size: 13px; color: var(--text-muted); margin-top: 2px; font-family: 'IBM Plex Mono', monospace; }
+  .meta-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* ── Stats ── */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    margin-top: 32px;
+  }
+  .stat {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    transition: border-color 0.2s;
+  }
+  .stat:hover { border-color: var(--accent); }
+  .stat-value { font-size: 32px; font-weight: 700; font-family: 'IBM Plex Mono', monospace; line-height: 1; }
+  .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat.critical .stat-value { color: var(--critical); }
+  .stat.high .stat-value { color: var(--high); }
+  .stat.clean-stat .stat-value { color: var(--low); }
+  .stat.total .stat-value { color: var(--accent); }
+
+  /* ── Filters ── */
+  .controls {
+    padding: 24px 48px 0;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .filter-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 7px 16px;
+    font-size: 13px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'IBM Plex Sans', sans-serif;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #0d1117;
+    font-weight: 600;
+  }
+  .search-box {
+    margin-left: auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 7px 16px;
+    font-size: 13px;
+    color: var(--text);
+    width: 220px;
+    font-family: 'IBM Plex Sans', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .search-box:focus { border-color: var(--accent); }
+  .search-box::placeholder { color: var(--text-muted); }
+
+  /* ── Cards ── */
+  .cards {
+    padding: 24px 48px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s;
+    animation: fadeIn 0.3s ease both;
+  }
+  .card:hover { border-color: #484f58; transform: translateY(-1px); }
+  @keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .file-info { display: flex; align-items: center; gap: 12px; }
+  .file-icon { font-size: 20px; }
+  .file-name { font-weight: 600; font-size: 15px; }
+  .file-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; font-family: 'IBM Plex Mono', monospace; }
+  .header-right { display: flex; align-items: center; gap: 12px; }
+  .chevron { color: var(--text-muted); font-size: 12px; transition: transform 0.2s; }
+  .card-header.open .chevron { transform: rotate(180deg); }
+
+  /* Severity borders */
+  .sev-critical-border { border-left: 3px solid var(--critical) !important; }
+  .sev-high-border     { border-left: 3px solid var(--high) !important; }
+  .sev-medium-border   { border-left: 3px solid var(--medium) !important; }
+  .sev-low-border      { border-left: 3px solid var(--low) !important; }
+
+  /* Badges */
+  .badge {
+    padding: 4px 12px; border-radius: 12px;
+    font-size: 12px; font-weight: 600;
+    font-family: 'IBM Plex Mono', monospace;
+    white-space: nowrap;
+  }
+  .sev-critical { background: rgba(248,81,73,0.15); color: var(--critical); border: 1px solid rgba(248,81,73,0.3); }
+  .sev-high     { background: rgba(240,136,62,0.15); color: var(--high);     border: 1px solid rgba(240,136,62,0.3); }
+  .sev-medium   { background: rgba(210,153,34,0.15); color: var(--medium);   border: 1px solid rgba(210,153,34,0.3); }
+  .sev-low      { background: rgba(63,185,80,0.15);  color: var(--low);      border: 1px solid rgba(63,185,80,0.3); }
+  .badge-clean  { background: rgba(35,134,54,0.15);  color: var(--clean);    border: 1px solid rgba(35,134,54,0.3); }
+  .badge-failed { background: rgba(210,153,34,0.15); color: var(--medium);   border: 1px solid rgba(210,153,34,0.3); }
+
+  /* Card body */
+  .card-body { display: none; padding: 0 20px 20px; border-top: 1px solid var(--border); }
+  .card-body.open { display: block; animation: slideDown 0.25s ease; }
+  @keyframes slideDown { from { opacity:0; transform: translateY(-6px); } to { opacity:1; transform: translateY(0); } }
+
+  .rca-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .rca-section { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+  .rca-section.full-width { grid-column: 1 / -1; }
+  .rca-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+  .rca-content { font-size: 14px; line-height: 1.6; color: var(--text); }
+  .rca-list { padding-left: 18px; }
+  .rca-list li { font-size: 14px; line-height: 1.7; color: var(--text); }
+
+  .clean-msg { padding: 0 20px 16px; font-size: 14px; color: var(--text-muted); }
+
+  /* Hidden cards */
+  .card.hidden { display: none; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px;
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'IBM Plex Mono', monospace;
+  }
+
+  @media (max-width: 700px) {
+    .header, .controls, .cards { padding-left: 20px; padding-right: 20px; }
+    .rca-grid { grid-template-columns: 1fr; }
+    .search-box { width: 100%; margin-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-top">
+    <div class="brand">
+      <div class="brand-icon">🔍</div>
+      <div>
+        <div class="brand-title">SRE Incident RCA Report</div>
+        <div class="brand-sub">provider: GROQ &nbsp;·&nbsp; generated: 2026-03-13 13:27:49</div>
+      </div>
+    </div>
+    <div class="meta-pill">📁 logs</div>
+  </div>
+
+  <div class="stats">
+    <div class="stat total">
+      <div class="stat-value">8</div>
+      <div class="stat-label">Total Files</div>
+    </div>
+    <div class="stat critical">
+      <div class="stat-value">7</div>
+      <div class="stat-label">Critical</div>
+    </div>
+    <div class="stat high">
+      <div class="stat-value">0</div>
+      <div class="stat-label">High</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" style="color:var(--medium)">7</div>
+      <div class="stat-label">Files w/ Issues</div>
+    </div>
+    <div class="stat clean-stat">
+      <div class="stat-value">1</div>
+      <div class="stat-label">Clean Files</div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="filter-btn active" onclick="filterCards('all', this)">All (8)</button>
+  <button class="filter-btn" onclick="filterCards('issue', this)">Issues (7)</button>
+  <button class="filter-btn" onclick="filterCards('clean', this)">Clean (1)</button>
+  <button class="filter-btn" onclick="filterCards('sev-critical', this)">🔴 Critical (7)</button>
+  <input class="search-box" type="text" placeholder="🔎 Search files..." oninput="searchCards(this.value)">
+</div>
+
+<div class="cards" id="cards-container">
+
+            <div class="card card-issue sev-critical-border" data-index="0">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="file-info">
+                        <span class="file-icon">📄</span>
+                        <div>
+                            <div class="file-name">app-server.log</div>
+                            <div class="file-meta">234 lines &nbsp;·&nbsp; 44 flagged &nbsp;·&nbsp; logs\app-server.log</div>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="badge sev-critical">🔴 CRITICAL</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="rca-grid">
+                        <div class="rca-section">
+                            <div class="rca-label">📋 Incident Summary</div>
+                            <div class="rca-content">The application experienced a database connection pool exhaustion due to slow queries and high memory usage, resulting in a service degradation and HTTP 500 errors for users. The issue was further complicated by a Java OutOfMemoryError and a Stripe API connection timeout. The incident lasted for approximately 16 hours.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">🔍 Root Cause</div>
+                            <div class="rca-content">The most likely root cause is a combination of inefficient database queries, inadequate connection pool sizing, and insufficient JVM memory allocation.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">💥 Impact</div>
+                            <div class="rca-content">The incident affected all users, resulting in failed requests and errors for approximately 16 hours. The payment processing service was also impacted, with failed payments and Stripe gateway timeouts.</div>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛠 Recommended Fix</div>
+                            <ul class="rca-list"><li>Optimize database queries to reduce execution time and improve performance</li><li>Increase the connection pool size to accommodate peak traffic and reduce exhaustion</li><li>Adjust JVM memory allocation to prevent OutOfMemoryErrors and ensure sufficient heap space</li></ul>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛡 Prevention</div>
+                            <ul class="rca-list"><li>Regularly monitor database query performance and optimize as needed</li><li>Implement connection pool sizing and JVM memory allocation based on traffic and usage patterns</li><li>Schedule regular maintenance and updates for dependencies, such as Stripe API and TLS certificates</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-issue sev-critical-border" data-index="1">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="file-info">
+                        <span class="file-icon">📄</span>
+                        <div>
+                            <div class="file-name">database.log</div>
+                            <div class="file-meta">177 lines &nbsp;·&nbsp; 29 flagged &nbsp;·&nbsp; logs\database.log</div>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="badge sev-critical">🔴 CRITICAL</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="rca-grid">
+                        <div class="rca-section">
+                            <div class="rca-label">📋 Incident Summary</div>
+                            <div class="rca-content">A PostgreSQL database experienced a connection limit breach, resulting in rejected connections and a replication interruption. The issue was caused by a combination of slow queries, idle-in-transaction connections, and a lack of indexes. The replication to pg-replica-1 was interrupted, causing read queries to return stale data.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">🔍 Root Cause</div>
+                            <div class="rca-content">The most likely root cause is the accumulation of idle-in-transaction connections holding locks, which led to a deadlock and subsequent connection limit breach.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">💥 Impact</div>
+                            <div class="rca-content">The database was unavailable for new connections for approximately 15 minutes, and the replication to pg-replica-1 was interrupted for an unknown duration, potentially causing data inconsistencies.</div>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛠 Recommended Fix</div>
+                            <ul class="rca-list"><li>Terminate idle-in-transaction connections to free up slots</li><li>Run VACUUM ANALYZE on the 'public.orders' table to reduce bloat</li><li>Create indexes on 'orders.created_at' and 'orders.status' to improve query performance</li></ul>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛡 Prevention</div>
+                            <ul class="rca-list"><li>Regularly monitor and analyze database performance to identify potential bottlenecks</li><li>Implement connection pooling and idle connection timeouts to prevent connection limit breaches</li><li>Schedule regular maintenance tasks, such as VACUUM ANALYZE and index creation, to maintain database health</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-issue sev-critical-border" data-index="2">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="file-info">
+                        <span class="file-icon">📄</span>
+                        <div>
+                            <div class="file-name">kubernetes.log</div>
+                            <div class="file-meta">90 lines &nbsp;·&nbsp; 18 flagged &nbsp;·&nbsp; logs\kubernetes.log</div>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="badge sev-critical">🔴 CRITICAL</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="rca-grid">
+                        <div class="rca-section">
+                            <div class="rca-label">📋 Incident Summary</div>
+                            <div class="rca-content">The app-server pod experienced an OOMKilled error due to exceeding the 512Mi memory limit, resulting in a CrashLoopBackOff. The issue persisted for several hours, and later, network degradation was observed on node-2, causing pods to lose external connectivity. The incident affected the app-server pod and external services like the Stripe API.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">🔍 Root Cause</div>
+                            <div class="rca-content">The most likely root cause is a memory leak in the app-server container, exacerbated by insufficient memory allocation and potential network configuration issues on node-2.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">💥 Impact</div>
+                            <div class="rca-content">The app-server pod was affected for approximately 9 hours, and external services like the Stripe API were unavailable for a shorter duration. The estimated duration of the incident is from 00:35 to 09:05 for the OOMKilled error and from 16:10 to unknown for the network degradation.</div>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛠 Recommended Fix</div>
+                            <ul class="rca-list"><li>Increase the memory allocation for the app-server pod to prevent OOMKilled errors</li><li>Investigate and resolve the memory leak in the app-server container</li><li>Verify and adjust network configurations on node-2 to prevent degradation and errors</li></ul>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛡 Prevention</div>
+                            <ul class="rca-list"><li>Regularly monitor pod memory usage and adjust allocations as needed</li><li>Implement automated memory leak detection and alerting for the app-server container</li><li>Schedule periodic network configuration reviews and maintenance for all nodes</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-issue sev-critical-border" data-index="3">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="file-info">
+                        <span class="file-icon">📄</span>
+                        <div>
+                            <div class="file-name">logs.txt</div>
+                            <div class="file-meta">23 lines &nbsp;·&nbsp; 14 flagged &nbsp;·&nbsp; logs\logs.txt</div>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="badge sev-critical">🔴 CRITICAL</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="rca-grid">
+                        <div class="rca-section">
+                            <div class="rca-label">📋 Incident Summary</div>
+                            <div class="rca-content">The application experienced a critical incident due to a database connection pool exhaustion, resulting in failed requests, pod restarts, and ultimately a primary database failover. The issue started with increasing response times and database connection pool usage, leading to a cascade of errors. The incident lasted approximately 2 minutes.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">🔍 Root Cause</div>
+                            <div class="rca-content">The most likely root cause is insufficient database connection pool sizing, leading to exhaustion under increased load.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">💥 Impact</div>
+                            <div class="rca-content">The incident affected the /api/orders and /api/users endpoints, resulting in HTTP 500 Internal Server Errors and dropped requests. The estimated duration of the incident was around 2 minutes, with potential longer-term effects due to the database failover.</div>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛠 Recommended Fix</div>
+                            <ul class="rca-list"><li>Increase the database connection pool size to accommodate peak load</li><li>Implement connection pooling monitoring and alerting to detect similar issues earlier</li><li>Verify and adjust the pod's memory limits to prevent OOMKilled errors</li></ul>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛡 Prevention</div>
+                            <ul class="rca-list"><li>Regularly review and adjust database connection pool sizing based on usage patterns</li><li>Implement load testing to identify potential bottlenecks</li><li>Configure automated scaling for the database connection pool and pod resources</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-issue sev-critical-border" data-index="4">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="file-info">
+                        <span class="file-icon">📄</span>
+                        <div>
+                            <div class="file-name">logs2.txt</div>
+                            <div class="file-meta">39 lines &nbsp;·&nbsp; 7 flagged &nbsp;·&nbsp; logs\logs2.txt</div>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="badge sev-critical">🔴 CRITICAL</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="rca-grid">
+                        <div class="rca-section">
+                            <div class="rca-label">📋 Incident Summary</div>
+                            <div class="rca-content">A series of errors occurred across multiple services, including payment-service, order-service, and gateway, resulting in failed requests and timeouts. The errors were reported across different regions, including us-east-1 and eu-west-1. The incident lasted for approximately 13 seconds.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">🔍 Root Cause</div>
+                            <div class="rca-content">The most likely root cause is a payment provider timeout or unavailability, which cascaded to other services and caused a chain reaction of errors.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">💥 Impact</div>
+                            <div class="rca-content">The payment-service, order-service, and gateway were affected, resulting in failed requests and potential financial losses for users. The estimated duration of the incident was 13 seconds.</div>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛠 Recommended Fix</div>
+                            <ul class="rca-list"><li>Investigate and resolve the payment provider timeout issue</li><li>Implement retry mechanisms for payment requests</li><li>Conduct a thorough review of the service dependencies and error handling</li></ul>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛡 Prevention</div>
+                            <ul class="rca-list"><li>Implement monitoring and alerting for payment provider availability</li><li>Regularly test and validate service dependencies</li><li>Develop a comprehensive incident response plan to minimize downtime and impact</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-issue sev-critical-border" data-index="5">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="file-info">
+                        <span class="file-icon">📄</span>
+                        <div>
+                            <div class="file-name">nginx.log</div>
+                            <div class="file-meta">67 lines &nbsp;·&nbsp; 21 flagged &nbsp;·&nbsp; logs\nginx.log</div>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="badge sev-critical">🔴 CRITICAL</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="rca-grid">
+                        <div class="rca-section">
+                            <div class="rca-label">📋 Incident Summary</div>
+                            <div class="rca-content">The application experienced a critical outage due to upstream server unavailability, resulting in 503 errors for all requests. The issue started with slow response times and connection refusals, eventually leading to a complete loss of upstream servers. The incident lasted for an unknown duration, but errors were reported between 00:35 and 16:10.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">🔍 Root Cause</div>
+                            <div class="rca-content">The most likely root cause is a failure or overload of the upstream application servers, possibly due to a resource constraint, misconfiguration, or external dependency issue.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">💥 Impact</div>
+                            <div class="rca-content">All users and systems relying on the application were affected, with an estimated duration of at least 1 hour and 35 minutes. The impact included failed requests, 503 errors, and potential data loss or corruption.</div>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛠 Recommended Fix</div>
+                            <ul class="rca-list"><li>Investigate and resolve the upstream server issue, potentially involving resource adjustments, configuration changes, or dependency updates.</li><li>Implement or adjust health checks and monitoring to detect similar issues earlier and prevent complete upstream server unavailability.</li><li>Review and optimize the application's architecture and resource allocation to prevent future overloads and failures.</li></ul>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛡 Prevention</div>
+                            <ul class="rca-list"><li>Regularly monitor and analyze application performance and resource utilization to identify potential bottlenecks and areas for optimization.</li><li>Implement robust health checks, monitoring, and alerting for upstream servers and dependencies to quickly detect and respond to issues.</li><li>Develop and regularly test disaster recovery and failover plans to minimize the impact of future outages and ensure business continuity.</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card card-clean" data-index="6">
+                <div class="card-header">
+                    <div class="file-info">
+                        <span class="file-icon">📄</span>
+                        <div>
+                            <div class="file-name">notification-service.log</div>
+                            <div class="file-meta">57 lines &nbsp;·&nbsp; logs\notification-service.log</div>
+                        </div>
+                    </div>
+                    <span class="badge badge-clean">✅ Clean</span>
+                </div>
+                <p class="clean-msg">No errors, warnings, or critical events detected.</p>
+            </div>
+            <div class="card card-issue sev-critical-border" data-index="7">
+                <div class="card-header" onclick="toggleCard(this)">
+                    <div class="file-info">
+                        <span class="file-icon">📄</span>
+                        <div>
+                            <div class="file-name">redis.log</div>
+                            <div class="file-meta">92 lines &nbsp;·&nbsp; 19 flagged &nbsp;·&nbsp; logs\redis.log</div>
+                        </div>
+                    </div>
+                    <div class="header-right">
+                        <span class="badge sev-critical">🔴 CRITICAL</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="rca-grid">
+                        <div class="rca-section">
+                            <div class="rca-label">📋 Incident Summary</div>
+                            <div class="rca-content">A memory usage spike in Redis led to high eviction rates, latency spikes, and eventually failed RDB saves, putting data durability at risk. The issue started at 00:35 and persisted for over 12 hours. The peak memory usage reached 78% of the total available memory.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">🔍 Root Cause</div>
+                            <div class="rca-content">The most likely root cause is an unusually high number of expired keys and a high number of blocked clients waiting on BLPOP/BRPOP, which led to increased memory usage and subsequent evictions.</div>
+                        </div>
+                        <div class="rca-section">
+                            <div class="rca-label">💥 Impact</div>
+                            <div class="rca-content">The Redis instance was affected, leading to potential data loss and increased latency for users. The estimated duration of the incident is over 12 hours.</div>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛠 Recommended Fix</div>
+                            <ul class="rca-list"><li>Increase the maxmemory setting to prevent high eviction rates</li><li>Implement a more efficient key expiration strategy to reduce memory usage</li><li>Optimize Redis configuration to reduce blocked clients and improve overall performance</li></ul>
+                        </div>
+                        <div class="rca-section full-width">
+                            <div class="rca-label">🛡 Prevention</div>
+                            <ul class="rca-list"><li>Monitor Redis memory usage and adjust configuration accordingly</li><li>Implement a key expiration strategy that balances memory usage and data freshness</li><li>Regularly review and optimize Redis configuration to prevent similar incidents</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+
+<div class="footer">
+  SRE AI Log Analyzer &nbsp;·&nbsp; 8 files processed &nbsp;·&nbsp; 2026-03-13 13:27:49
+</div>
+
+<script>
+  function toggleCard(header) {
+    header.classList.toggle('open');
+    const body = header.nextElementSibling;
+    body.classList.toggle('open');
+  }
+
+  function filterCards(type, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.card').forEach(card => {
+      if (type === 'all') { card.classList.remove('hidden'); return; }
+      if (type === 'issue') { card.classList.toggle('hidden', !card.classList.contains('card-issue')); return; }
+      if (type === 'clean') { card.classList.toggle('hidden', !card.classList.contains('card-clean')); return; }
+      card.classList.toggle('hidden', !card.classList.contains(type + '-border'));
+    });
+  }
+
+  function searchCards(query) {
+    const q = query.toLowerCase();
+    document.querySelectorAll('.card').forEach(card => {
+      const text = card.innerText.toLowerCase();
+      card.classList.toggle('hidden', q.length > 0 && !text.includes(q));
+    });
+  }
+
+  // Auto-expand CRITICAL cards
+  document.querySelectorAll('.sev-critical-border').forEach(card => {
+    const header = card.querySelector('.card-header');
+    const body   = card.querySelector('.card-body');
+    if (header && body) { header.classList.add('open'); body.classList.add('open'); }
+  });
+</script>
+</body>
+</html>

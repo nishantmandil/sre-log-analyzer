@@ -1,0 +1,90 @@
+2024-03-11 00:00:00.001 INFO  [k8s] Kubernetes cluster v1.27.8 - namespace: production
+2024-03-11 00:00:00.112 INFO  [k8s] Node pool status: node-1 Ready, node-2 Ready, node-3 Ready
+2024-03-11 00:00:00.223 INFO  [k8s] Deployments: app-server (3/3 ready), pg-primary (1/1), redis-cluster (3/3)
+2024-03-11 00:00:00.334 INFO  [k8s] HorizontalPodAutoscaler: app-server minReplicas=2 maxReplicas=10 currentReplicas=3
+2024-03-11 00:05:00.441 INFO  [k8s] Node resource usage: node-1 CPU=12% MEM=38%, node-2 CPU=15% MEM=41%, node-3 CPU=11% MEM=36%
+2024-03-11 00:15:00.552 INFO  [k8s] Pod app-server-7f9d4b-xk2p9 CPU=0.3 cores MEM=412Mi/512Mi (80%)
+2024-03-11 00:15:00.001 INFO  [k8s] Pod app-server-7f9d4b-ab3r7 CPU=0.2 cores MEM=398Mi/512Mi (78%)
+2024-03-11 00:15:00.112 INFO  [k8s] Pod app-server-7f9d4b-cd5t2 CPU=0.2 cores MEM=401Mi/512Mi (78%)
+2024-03-11 00:30:00.223 INFO  [k8s] Liveness probe OK: app-server-7f9d4b-xk2p9 GET /api/health 200
+2024-03-11 00:30:00.334 INFO  [k8s] Liveness probe OK: app-server-7f9d4b-ab3r7 GET /api/health 200
+2024-03-11 00:30:00.441 INFO  [k8s] Liveness probe OK: app-server-7f9d4b-cd5t2 GET /api/health 200
+2024-03-11 00:35:00.552 WARNING [k8s] Pod app-server-7f9d4b-xk2p9 MEM=488Mi/512Mi (95%) - approaching limit
+2024-03-11 00:35:30.001 WARNING [k8s] Pod app-server-7f9d4b-xk2p9 MEM=502Mi/512Mi (98%) - OOMKill likely
+2024-03-11 00:36:06.112 ERROR  [k8s] Pod app-server-7f9d4b-xk2p9 OOMKilled (exit code 137) - memory limit 512Mi exceeded
+2024-03-11 00:36:06.223 CRITICAL [k8s] Container app-server in pod app-server-7f9d4b-xk2p9 killed by OOM killer
+  Last known memory: 521Mi (exceeded limit of 512Mi by 9Mi)
+  OOM killer log: Out of memory: Kill process 1 (java) score 998 or sacrifice child
+2024-03-11 00:36:06.334 ERROR  [k8s] Pod app-server-7f9d4b-xk2p9 entering CrashLoopBackOff (restartCount=1)
+2024-03-11 00:36:06.441 INFO  [k8s] Kubernetes scheduling replacement pod for app-server-7f9d4b-xk2p9
+2024-03-11 00:36:07.552 INFO  [k8s] New pod app-server-7f9d4b-nw3q1 scheduled on node-2
+2024-03-11 00:36:08.001 INFO  [k8s] Pod app-server-7f9d4b-nw3q1 pulling image: company/app-server:v3.2.1
+2024-03-11 00:36:09.112 INFO  [k8s] Pod app-server-7f9d4b-nw3q1 image pulled successfully
+2024-03-11 00:36:09.223 INFO  [k8s] Pod app-server-7f9d4b-nw3q1 container starting
+2024-03-11 00:36:10.334 INFO  [k8s] Readiness probe passed: app-server-7f9d4b-nw3q1 GET /api/health 200
+2024-03-11 00:36:10.441 INFO  [k8s] Pod app-server-7f9d4b-nw3q1 READY - added to service endpoints
+2024-03-11 00:36:10.552 INFO  [k8s] Deployment app-server back to 3/3 ready replicas
+2024-03-11 00:36:11.001 WARNING [k8s] Pod app-server-7f9d4b-xk2p9 still in CrashLoopBackOff - will retry in 30s
+2024-03-11 00:36:41.112 ERROR  [k8s] Pod app-server-7f9d4b-xk2p9 restart attempt 2 - OOMKilled again immediately
+2024-03-11 00:37:11.223 ERROR  [k8s] Pod app-server-7f9d4b-xk2p9 restart attempt 3 - OOMKilled again
+2024-03-11 00:38:41.334 ERROR  [k8s] Pod app-server-7f9d4b-xk2p9 CrashLoopBackOff: backoff delay 5m0s (restartCount=4)
+2024-03-11 00:43:41.441 ERROR  [k8s] Pod app-server-7f9d4b-xk2p9 CrashLoopBackOff: backoff delay 10m0s (restartCount=5)
+2024-03-11 00:53:41.552 INFO  [k8s] Pod app-server-7f9d4b-xk2p9 terminated by Kubernetes (exceeded max restarts)
+2024-03-11 00:53:42.001 INFO  [k8s] Deployment app-server: 2/3 ready replicas (pod xk2p9 removed)
+2024-03-11 01:00:00.112 INFO  [k8s] Node resource usage: node-1 CPU=8% MEM=34%, node-2 CPU=18% MEM=48%, node-3 CPU=7% MEM=33%
+2024-03-11 01:00:00.223 INFO  [k8s] HPA: app-server currentReplicas=2 (scaled down from 3 after pod removal)
+2024-03-11 01:30:00.334 INFO  [k8s] Liveness probe OK: app-server-7f9d4b-nw3q1 GET /api/health 200
+2024-03-11 01:30:00.441 INFO  [k8s] Liveness probe OK: app-server-7f9d4b-ab3r7 GET /api/health 200
+2024-03-11 02:00:00.552 INFO  [k8s] Node resource usage: node-1 CPU=6% MEM=31%, node-2 CPU=14% MEM=45%, node-3 CPU=5% MEM=30%
+2024-03-11 03:00:00.001 INFO  [k8s] Node resource usage: node-1 CPU=5% MEM=29%, node-2 CPU=12% MEM=43%, node-3 CPU=4% MEM=28%
+2024-03-11 04:00:00.112 INFO  [k8s] Node resource usage: node-1 CPU=5% MEM=28%, node-2 CPU=11% MEM=42%, node-3 CPU=4% MEM=27%
+2024-03-11 05:00:00.223 INFO  [k8s] Node resource usage: node-1 CPU=5% MEM=28%, node-2 CPU=11% MEM=42%, node-3 CPU=4% MEM=27%
+2024-03-11 06:00:00.334 INFO  [k8s] Node resource usage: node-1 CPU=6% MEM=30%, node-2 CPU=13% MEM=44%, node-3 CPU=5% MEM=29%
+2024-03-11 07:00:00.441 INFO  [k8s] Node resource usage: node-1 CPU=8% MEM=33%, node-2 CPU=16% MEM=47%, node-3 CPU=7% MEM=32%
+2024-03-11 08:00:00.552 INFO  [k8s] Node resource usage: node-1 CPU=12% MEM=37%, node-2 CPU=20% MEM=51%, node-3 CPU=11% MEM=36%
+2024-03-11 08:00:00.001 INFO  [k8s] HPA: app-server scaling up to 3 replicas (CPU utilization 68%)
+2024-03-11 08:00:01.112 INFO  [k8s] New pod app-server-7f9d4b-ef8p3 scheduled on node-1
+2024-03-11 08:00:03.223 INFO  [k8s] Pod app-server-7f9d4b-ef8p3 READY - added to service endpoints
+2024-03-11 08:00:03.334 INFO  [k8s] Deployment app-server back to 3/3 ready replicas
+2024-03-11 09:00:00.441 INFO  [k8s] Node resource usage: node-1 CPU=22% MEM=52%, node-2 CPU=24% MEM=55%, node-3 CPU=20% MEM=50%
+2024-03-11 09:05:24.552 WARNING [k8s] Pod app-server-7f9d4b-nw3q1 CPU spike: 1.8 cores (limit: 2.0) - JVM GC in progress
+2024-03-11 09:05:28.001 INFO  [k8s] Pod app-server-7f9d4b-nw3q1 CPU normalized: 0.4 cores
+2024-03-11 10:00:00.112 INFO  [k8s] Node resource usage: node-1 CPU=28% MEM=56%, node-2 CPU=30% MEM=59%, node-3 CPU=26% MEM=54%
+2024-03-11 10:00:00.223 INFO  [k8s] HPA: app-server currentReplicas=3 (stable)
+2024-03-11 11:00:00.334 INFO  [k8s] Node resource usage: node-1 CPU=31% MEM=58%, node-2 CPU=33% MEM=61%, node-3 CPU=29% MEM=57%
+2024-03-11 12:00:00.441 INFO  [k8s] Node resource usage: node-1 CPU=35% MEM=60%, node-2 CPU=38% MEM=63%, node-3 CPU=33% MEM=59%
+2024-03-11 12:00:00.552 INFO  [k8s] HPA: app-server scaling up to 4 replicas (CPU utilization 76%)
+2024-03-11 12:00:01.001 INFO  [k8s] New pod app-server-7f9d4b-gh2k5 scheduled on node-3
+2024-03-11 12:00:03.112 INFO  [k8s] Pod app-server-7f9d4b-gh2k5 READY - added to service endpoints
+2024-03-11 13:00:00.223 INFO  [k8s] Node resource usage: node-1 CPU=28% MEM=55%, node-2 CPU=30% MEM=58%, node-3 CPU=27% MEM=54%
+2024-03-11 13:00:00.334 INFO  [k8s] HPA: app-server currentReplicas=4 (stable)
+2024-03-11 13:10:00.441 WARNING [k8s] PersistentVolumeClaim pg-data-pvc usage: 78% (156Gi/200Gi) - monitor storage
+2024-03-11 13:10:00.552 WARNING [k8s] PersistentVolumeClaim pg-wal-pvc usage: 82% (8.2Gi/10Gi) - consider expansion
+2024-03-11 14:00:00.001 INFO  [k8s] Node resource usage: node-1 CPU=25% MEM=52%, node-2 CPU=27% MEM=55%, node-3 CPU=24% MEM=51%
+2024-03-11 15:00:00.112 INFO  [k8s] Node resource usage: node-1 CPU=30% MEM=57%, node-2 CPU=32% MEM=60%, node-3 CPU=28% MEM=56%
+2024-03-11 16:00:00.223 INFO  [k8s] Node resource usage: node-1 CPU=33% MEM=59%, node-2 CPU=35% MEM=62%, node-3 CPU=31% MEM=58%
+2024-03-11 16:10:00.334 WARNING [k8s] Pod app-server-7f9d4b-nw3q1 network I/O spike: 890Mbps (threshold: 500Mbps)
+2024-03-11 16:10:02.441 ERROR  [k8s] Node node-2 network interface eth0 errors: 234 tx_errors, 89 rx_errors in last 60s
+2024-03-11 16:10:02.552 ERROR  [k8s] Pod app-server-7f9d4b-nw3q1 lost connectivity to external services (Stripe API)
+2024-03-11 16:10:02.663 CRITICAL [k8s] Node node-2 experiencing network degradation - pods may lose external connectivity
+2024-03-11 16:10:03.774 ERROR  [k8s] CNI plugin error on node-2: calico-node failed health check - restarting
+2024-03-11 16:10:05.885 INFO  [k8s] calico-node restarted on node-2 - network recovering
+2024-03-11 16:10:15.001 INFO  [k8s] Node node-2 network restored - 0 errors in last 10s
+2024-03-11 16:10:15.112 INFO  [k8s] External connectivity restored for pods on node-2
+2024-03-11 16:15:00.223 INFO  [k8s] Node resource usage normalized after network event
+2024-03-11 17:00:00.334 INFO  [k8s] Node resource usage: node-1 CPU=29% MEM=56%, node-2 CPU=31% MEM=59%, node-3 CPU=27% MEM=55%
+2024-03-11 17:00:00.441 INFO  [k8s] HPA: app-server scaling down to 3 replicas (CPU utilization 58%)
+2024-03-11 17:00:01.552 INFO  [k8s] Pod app-server-7f9d4b-gh2k5 gracefully terminating (scale down)
+2024-03-11 17:00:31.001 INFO  [k8s] Pod app-server-7f9d4b-gh2k5 terminated. Deployment: 3/3 ready
+2024-03-11 18:00:00.112 INFO  [k8s] Node resource usage: node-1 CPU=25% MEM=53%, node-2 CPU=27% MEM=56%, node-3 CPU=23% MEM=52%
+2024-03-11 19:00:00.223 INFO  [k8s] Node resource usage: node-1 CPU=22% MEM=50%, node-2 CPU=24% MEM=53%, node-3 CPU=20% MEM=49%
+2024-03-11 20:00:00.334 INFO  [k8s] Node resource usage: node-1 CPU=18% MEM=46%, node-2 CPU=20% MEM=49%, node-3 CPU=16% MEM=45%
+2024-03-11 20:00:00.441 INFO  [k8s] HPA: app-server scaling down to 2 replicas (CPU utilization 38%)
+2024-03-11 20:00:01.552 INFO  [k8s] Pod app-server-7f9d4b-ef8p3 gracefully terminating (scale down)
+2024-03-11 20:00:31.001 INFO  [k8s] Pod app-server-7f9d4b-ef8p3 terminated. Deployment: 2/3 ready
+2024-03-11 21:00:00.112 INFO  [k8s] Node resource usage: node-1 CPU=14% MEM=42%, node-2 CPU=16% MEM=45%, node-3 CPU=12% MEM=41%
+2024-03-11 22:00:00.223 INFO  [k8s] Node resource usage: node-1 CPU=10% MEM=38%, node-2 CPU=12% MEM=41%, node-3 CPU=9% MEM=37%
+2024-03-11 23:00:00.334 INFO  [k8s] Node resource usage: node-1 CPU=8% MEM=35%, node-2 CPU=10% MEM=38%, node-3 CPU=7% MEM=34%
+2024-03-11 23:00:00.441 INFO  [k8s] Certificate expiry check: api.company.com expires in 14 days - ALERT sent to ops-team@company.com
+2024-03-11 23:30:00.552 INFO  [k8s] Daily security scan: 0 critical CVEs detected in running images
+2024-03-11 23:59:59.001 INFO  [k8s] Daily summary: pod_restarts=5 | oom_kills=1 | hpa_scale_events=4 | avg_cpu=21% | avg_mem=49%

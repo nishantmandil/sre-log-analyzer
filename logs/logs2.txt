@@ -1,0 +1,39 @@
+2026-03-10T10:00:01.112Z INFO gateway host=ip-10-0-12-21 region=us-east-1 trace_id=8fa32c9bfae1d22c status=200 latency_ms=23 msg="Request completed" path=/api/login
+2026-03-10T10:00:01.314Z DEBUG auth-service host=ip-10-0-13-10 region=ap-south-1 trace_id=b193ac23f812a03f status=200 latency_ms=6 msg="Token parsed"
+2026-03-10T10:00:01.771Z INFO auth-service host=ip-10-0-13-10 region=ap-south-1 trace_id=b193ac23f812a03f status=200 latency_ms=11 msg="User session validated"
+2026-03-10T10:00:02.003Z INFO order-service host=ip-10-0-12-22 region=eu-west-1 trace_id=f9010aa11cc3f2d1 status=201 latency_ms=44 msg="Order created" order_id=ORD88231
+2026-03-10T10:00:02.334Z INFO gateway host=ip-10-0-12-21 region=us-east-1 trace_id=9cc12a7712fe9021 status=200 latency_ms=27 msg="Request completed" path=/api/orders
+2026-03-10T10:00:02.918Z WARN search-service host=ip-10-0-15-8 region=us-east-1 trace_id=1a3b8834fef23411 status=200 latency_ms=512 msg="Slow query detected"
+2026-03-10T10:00:03.091Z DEBUG search-service host=ip-10-0-15-8 region=us-east-1 trace_id=1a3b8834fef23411 status=200 latency_ms=22 msg="SQL query prepared"
+2026-03-10T10:00:03.442Z INFO inventory-service host=ip-10-0-15-8 region=ap-south-1 trace_id=fa11299bcd12a231 status=200 latency_ms=19 msg="Cache hit" sku=SKU-112
+2026-03-10T10:00:03.981Z ERROR payment-service host=ip-10-0-14-3 region=us-east-1 trace_id=7aa991c123fa19ab status=503 latency_ms=812 msg="Dependency service unavailable"
+2026-03-10T10:00:04.112Z WARN payment-service host=ip-10-0-14-3 region=us-east-1 trace_id=7aa991c123fa19ab status=503 latency_ms=321 msg="Retrying downstream request"
+2026-03-10T10:00:04.442Z ERROR payment-service host=ip-10-0-14-3 region=us-east-1 trace_id=7aa991c123fa19ab status=503 latency_ms=900 msg="Payment provider timeout"
+2026-03-10T10:00:04.777Z INFO notification-service host=ip-10-0-13-10 region=eu-west-1 trace_id=cb9923fa001239ff status=200 latency_ms=32 msg="Message published to queue"
+2026-03-10T10:00:05.101Z INFO gateway host=ip-10-0-12-21 region=us-east-1 trace_id=ee23f3a12ccda1aa status=200 latency_ms=18 msg="Request completed" path=/api/products
+2026-03-10T10:00:05.341Z DEBUG inventory-service host=ip-10-0-15-8 region=ap-south-1 trace_id=11aa8832aefbb122 status=200 latency_ms=7 msg="Payload serialized"
+2026-03-10T10:00:05.712Z INFO inventory-service host=ip-10-0-15-8 region=ap-south-1 trace_id=11aa8832aefbb122 status=200 latency_ms=15 msg="Inventory updated" sku=SKU-118
+2026-03-10T10:00:06.104Z WARN gateway host=ip-10-0-12-21 region=us-east-1 trace_id=93af9122ee912abc status=429 latency_ms=221 msg="Rate limit approaching"
+2026-03-10T10:00:06.433Z INFO user-profile host=ip-10-0-12-22 region=eu-west-1 trace_id=cc88129912ffab23 status=200 latency_ms=29 msg="Profile fetched"
+2026-03-10T10:00:06.812Z DEBUG user-profile host=ip-10-0-12-22 region=eu-west-1 trace_id=cc88129912ffab23 status=200 latency_ms=9 msg="Feature flag evaluated"
+2026-03-10T10:00:07.121Z ERROR order-service host=ip-10-0-12-22 region=eu-west-1 trace_id=ff21ac912312a9f1 status=500 latency_ms=332 msg="Unhandled exception"
+2026-03-10T10:00:07.441Z ERROR order-service host=ip-10-0-12-22 region=eu-west-1 trace_id=ff21ac912312a9f1 status=500 latency_ms=280 msg="Failed to process request"
+2026-03-10T10:00:07.882Z WARN order-service host=ip-10-0-12-22 region=eu-west-1 trace_id=ff21ac912312a9f1 status=500 latency_ms=190 msg="Retrying downstream request"
+2026-03-10T10:00:08.103Z INFO gateway host=ip-10-0-12-21 region=us-east-1 trace_id=88219ac8812efabc status=200 latency_ms=25 msg="Request completed" path=/api/search
+2026-03-10T10:00:08.551Z INFO search-service host=ip-10-0-15-8 region=us-east-1 trace_id=9921bc88121fa12a status=200 latency_ms=41 msg="Search results returned"
+2026-03-10T10:00:09.002Z DEBUG search-service host=ip-10-0-15-8 region=us-east-1 trace_id=9921bc88121fa12a status=200 latency_ms=8 msg="SQL query prepared"
+2026-03-10T10:00:09.441Z WARN inventory-service host=ip-10-0-15-8 region=ap-south-1 trace_id=abc33219ac8812ef status=200 latency_ms=350 msg="Slow query detected"
+2026-03-10T10:00:09.774Z INFO inventory-service host=ip-10-0-15-8 region=ap-south-1 trace_id=abc33219ac8812ef status=200 latency_ms=21 msg="Inventory lookup completed"
+2026-03-10T10:00:10.112Z ERROR payment-service host=ip-10-0-14-3 region=us-east-1 trace_id=99cc231ac8821a21 status=502 latency_ms=722 msg="Payment gateway returned bad response"
+2026-03-10T10:00:10.441Z WARN payment-service host=ip-10-0-14-3 region=us-east-1 trace_id=99cc231ac8821a21 status=502 latency_ms=211 msg="Retrying downstream request"
+2026-03-10T10:00:10.901Z INFO payment-service host=ip-10-0-14-3 region=us-east-1 trace_id=99cc231ac8821a21 status=200 latency_ms=88 msg="Payment processed"
+2026-03-10T10:00:11.212Z INFO notification-service host=ip-10-0-13-10 region=eu-west-1 trace_id=1ff223a9981a12ab status=200 latency_ms=31 msg="Email sent"
+2026-03-10T10:00:11.712Z DEBUG notification-service host=ip-10-0-13-10 region=eu-west-1 trace_id=1ff223a9981a12ab status=200 latency_ms=7 msg="Payload serialized"
+2026-03-10T10:00:12.110Z INFO gateway host=ip-10-0-12-21 region=us-east-1 trace_id=23ab88211facc921 status=200 latency_ms=20 msg="Request completed" path=/api/profile
+2026-03-10T10:00:12.441Z INFO user-profile host=ip-10-0-12-22 region=eu-west-1 trace_id=23ab88211facc921 status=200 latency_ms=26 msg="Profile updated"
+2026-03-10T10:00:13.003Z WARN gateway host=ip-10-0-12-21 region=us-east-1 trace_id=fa821ac9981abca2 status=429 latency_ms=188 msg="Rate limit approaching"
+2026-03-10T10:00:13.442Z ERROR gateway host=ip-10-0-12-21 region=us-east-1 trace_id=fa821ac9981abca2 status=500 latency_ms=430 msg="Upstream service failed"
+2026-03-10T10:00:13.902Z ERROR gateway host=ip-10-0-12-21 region=us-east-1 trace_id=fa821ac9981abca2 status=500 latency_ms=380 msg="Request aborted"
+2026-03-10T10:00:14.331Z INFO gateway host=ip-10-0-12-21 region=us-east-1 trace_id=bb221fa981ac9921 status=200 latency_ms=23 msg="Request completed" path=/api/products
+2026-03-10T10:00:14.881Z INFO search-service host=ip-10-0-15-8 region=us-east-1 trace_id=bb221fa981ac9921 status=200 latency_ms=36 msg="Search results returned"
+2026-03-10T10:00:15.210Z DEBUG search-service host=ip-10-0-15-8 region=us-east-1 trace_id=bb221fa981ac9921 status=200 latency_ms=9 msg="SQL query prepared"

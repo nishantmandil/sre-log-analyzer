@@ -1,0 +1,67 @@
+2024-03-11 00:00:01.001 INFO  [nginx] nginx/1.24.0 started on :80 and :443
+2024-03-11 00:00:01.112 INFO  [nginx] SSL certificate loaded: api.company.com (expires 2024-03-25)
+2024-03-11 00:00:01.223 INFO  [nginx] Upstream pool initialized: app-server-7f9d4b-xk2p9:8080 (weight=1)
+2024-03-11 00:01:12.334 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.012s
+2024-03-11 00:01:15.441 INFO  [nginx] 203.0.113.45 - GET /api/users/profile HTTP/1.1 200 1842 "https://app.company.com" "Mozilla/5.0 Chrome/121" 0.048s
+2024-03-11 00:01:18.552 INFO  [nginx] 203.0.113.46 - POST /api/orders HTTP/1.1 201 892 "https://app.company.com" "Mozilla/5.0 Chrome/121" 0.081s
+2024-03-11 00:02:10.001 INFO  [nginx] 203.0.113.47 - GET /api/products HTTP/1.1 200 14823 "https://app.company.com" "Mozilla/5.0 Safari/17" 0.035s
+2024-03-11 00:02:44.112 INFO  [nginx] 203.0.113.48 - PUT /api/users/123/preferences HTTP/1.1 200 412 "https://app.company.com" "Mozilla/5.0 Chrome/121" 0.024s
+2024-03-11 00:05:22.223 INFO  [nginx] 203.0.113.49 - GET /api/orders/history HTTP/1.1 200 28923 "https://app.company.com" "Mozilla/5.0 Firefox/122" 0.058s
+2024-03-11 00:07:33.334 INFO  [nginx] 203.0.113.50 - POST /api/auth/login HTTP/1.1 200 512 "-" "Mozilla/5.0 Chrome/121" 0.104s
+2024-03-11 00:15:45.441 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.010s
+2024-03-11 00:20:11.552 INFO  [nginx] 203.0.113.51 - GET /api/users HTTP/1.1 200 48234 "https://admin.company.com" "Mozilla/5.0 Chrome/121" 0.044s
+2024-03-11 00:22:11.001 INFO  [nginx] 203.0.113.52 - POST /api/payments HTTP/1.1 201 334 "https://app.company.com" "Mozilla/5.0 Chrome/121" 0.137s
+2024-03-11 00:30:14.112 INFO  [nginx] 203.0.113.53 - GET /api/dashboard HTTP/1.1 200 82341 "https://app.company.com" "Mozilla/5.0 Safari/17" 0.065s
+2024-03-11 00:35:22.223 WARNING [nginx] Upstream app-server-7f9d4b-xk2p9:8080 response time 1891ms (threshold: 1000ms) for GET /api/orders
+2024-03-11 00:35:23.334 WARNING [nginx] Upstream app-server-7f9d4b-xk2p9:8080 response time 2204ms for GET /api/orders
+2024-03-11 00:36:04.441 ERROR  [nginx] 203.0.113.54 - GET /api/orders HTTP/1.1 500 234 "https://app.company.com" "Mozilla/5.0 Chrome/121" 30.012s upstream_error: "connect() failed (111: Connection refused)"
+2024-03-11 00:36:04.552 ERROR  [nginx] 203.0.113.55 - POST /api/orders HTTP/1.1 500 234 "https://app.company.com" "Mozilla/5.0 Chrome/121" 30.011s upstream_error: "connect() failed (111: Connection refused)"
+2024-03-11 00:36:04.663 ERROR  [nginx] 203.0.113.56 - GET /api/users HTTP/1.1 500 234 "https://admin.company.com" "Mozilla/5.0 Chrome/121" 30.009s upstream_error: "connect() failed (111: Connection refused)"
+2024-03-11 00:36:05.001 ERROR  [nginx] 203.0.113.57 - POST /api/payments HTTP/1.1 500 234 "https://app.company.com" "Mozilla/5.0 Chrome/121" 30.008s upstream_error: "connect() failed (111: Connection refused)"
+2024-03-11 00:36:05.112 ERROR  [nginx] 203.0.113.58 - GET /api/dashboard HTTP/1.1 500 234 "https://app.company.com" "Mozilla/5.0 Safari/17" 30.007s upstream_error: "connect() failed (111: Connection refused)"
+2024-03-11 00:36:05.223 CRITICAL [nginx] All upstream servers unavailable! Serving 503 for all requests.
+2024-03-11 00:36:05.334 ERROR  [nginx] 203.0.113.59 - GET /api/products HTTP/1.1 503 89 "https://app.company.com" "Mozilla/5.0 Chrome/121" 0.001s "no live upstreams while connecting to upstream"
+2024-03-11 00:36:05.441 ERROR  [nginx] 203.0.113.60 - POST /api/auth/login HTTP/1.1 503 89 "-" "Mozilla/5.0 Chrome/121" 0.001s "no live upstreams while connecting to upstream"
+2024-03-11 00:36:05.552 ERROR  [nginx] 203.0.113.61 - GET /api/orders/history HTTP/1.1 503 89 "https://app.company.com" "Mozilla/5.0 Firefox/122" 0.001s "no live upstreams while connecting to upstream"
+2024-03-11 00:36:06.001 ERROR  [nginx] Upstream app-server-7f9d4b-xk2p9:8080 removed from pool - health check failed
+2024-03-11 00:36:06.112 CRITICAL [nginx] UPSTREAM POOL EMPTY - no healthy servers available
+2024-03-11 00:36:08.223 INFO  [nginx] New upstream added to pool: app-server-7f9d4b-nw3q1:8080
+2024-03-11 00:36:10.334 INFO  [nginx] Upstream app-server-7f9d4b-nw3q1:8080 passed health check - added to rotation
+2024-03-11 00:36:10.441 INFO  [nginx] Service restored - upstream pool healthy
+2024-03-11 00:36:12.552 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.011s
+2024-03-11 00:37:00.001 INFO  [nginx] 203.0.113.62 - GET /api/orders HTTP/1.1 200 28923 "https://app.company.com" "Mozilla/5.0 Chrome/121" 0.050s
+2024-03-11 00:38:22.112 INFO  [nginx] 203.0.113.63 - POST /api/payments HTTP/1.1 201 334 "https://app.company.com" "Mozilla/5.0 Chrome/121" 0.115s
+2024-03-11 01:00:00.223 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 02:00:00.334 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.010s
+2024-03-11 02:45:19.441 WARNING [nginx] 192.168.1.45 - POST /api/auth/login HTTP/1.1 401 89 "-" "python-requests/2.31.0" 0.092s (failed_login attempt 5)
+2024-03-11 02:45:20.552 WARNING [nginx] Rate limit triggered for IP 192.168.1.45 - blocking for 3600s
+2024-03-11 02:45:21.001 WARNING [nginx] 192.168.1.45 - POST /api/auth/login HTTP/1.1 429 67 "-" "python-requests/2.31.0" 0.001s (rate limited)
+2024-03-11 03:00:00.112 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 04:00:00.223 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.010s
+2024-03-11 05:00:00.334 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 06:00:00.441 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.010s
+2024-03-11 07:00:00.552 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 08:00:00.001 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.010s
+2024-03-11 09:00:00.112 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 09:05:24.223 WARNING [nginx] Upstream app-server-7f9d4b-nw3q1:8080 response time 4200ms for GET /api/reports (GC pause)
+2024-03-11 09:05:28.334 INFO  [nginx] Upstream response time normalized: 13ms
+2024-03-11 10:00:00.441 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 11:00:00.552 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.010s
+2024-03-11 12:00:00.001 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 13:00:00.112 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.010s
+2024-03-11 13:10:22.223 WARNING [nginx] SSL certificate for api.company.com expires in 14 days - renewal required
+2024-03-11 14:00:00.334 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 15:00:00.441 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.010s
+2024-03-11 16:00:00.552 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 16:10:24.001 ERROR  [nginx] 203.0.113.64 - POST /api/payments HTTP/1.1 502 234 "https://app.company.com" "Mozilla/5.0 Chrome/121" 5.012s upstream_error: "upstream timed out (110: Connection timed out) while reading response header from upstream"
+2024-03-11 16:10:25.112 ERROR  [nginx] 203.0.113.65 - POST /api/payments HTTP/1.1 502 234 "https://app.company.com" "Mozilla/5.0 Safari/17" 5.011s upstream_error: "upstream timed out (110: Connection timed out) while reading response header from upstream"
+2024-03-11 16:10:26.223 WARNING [nginx] Upstream app-server-7f9d4b-nw3q1:8080 error rate 66% (2/3 requests failed) for /api/payments
+2024-03-11 16:15:00.334 INFO  [nginx] Upstream error rate normalized: 0% for /api/payments
+2024-03-11 17:00:00.441 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 18:00:00.552 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.010s
+2024-03-11 19:00:00.001 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 20:00:00.112 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.010s
+2024-03-11 21:00:00.223 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 22:00:00.334 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.010s
+2024-03-11 23:00:00.441 INFO  [nginx] 10.0.1.102 - GET /api/health HTTP/1.1 200 142 "-" "kube-probe/1.27" 0.009s
+2024-03-11 23:59:59.001 INFO  [nginx] Daily stats: requests=48,234 | 2xx=47,891 (99.3%) | 4xx=201 (0.4%) | 5xx=142 (0.3%) | avg_response=52ms | peak_rps=234

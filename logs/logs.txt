@@ -1,0 +1,23 @@
+2024-03-11 10:00:01 INFO  Starting application server on port 8080
+2024-03-11 10:00:02 INFO  Connected to database at db-primary:5432
+2024-03-11 10:00:05 INFO  Cache initialized successfully
+2024-03-11 10:01:12 INFO  Health check passed
+2024-03-11 10:15:34 INFO  Processing 142 requests/sec
+2024-03-11 10:30:01 WARNING  Response time increasing: avg 850ms (threshold: 500ms)
+2024-03-11 10:30:45 WARNING  Database connection pool usage at 78%
+2024-03-11 10:31:02 WARNING  Database connection pool usage at 91%
+2024-03-11 10:31:15 ERROR  Database connection pool exhausted: max_connections=100 reached
+2024-03-11 10:31:16 ERROR  Failed to acquire DB connection after 30s timeout - request dropped
+2024-03-11 10:31:17 ERROR  Failed to acquire DB connection after 30s timeout - request dropped
+2024-03-11 10:31:18 ERROR  Failed to acquire DB connection after 30s timeout - request dropped
+2024-03-11 10:31:20 ERROR  HTTP 500 Internal Server Error - /api/orders endpoint
+2024-03-11 10:31:20 ERROR  HTTP 500 Internal Server Error - /api/users endpoint
+2024-03-11 10:31:21 CRITICAL  Service health check FAILED - pod restarting
+2024-03-11 10:31:25 ERROR  OOMKilled: container exceeded memory limit 512Mi
+2024-03-11 10:31:26 INFO  Pod restarted (restart count: 3)
+2024-03-11 10:31:30 WARNING  Restarted pod failing to reconnect to db-primary
+2024-03-11 10:32:00 ERROR  Connection refused: db-primary:5432
+2024-03-11 10:32:05 CRITICAL  Primary database unreachable - failover initiated
+2024-03-11 10:32:10 INFO  Failover to db-replica completed
+2024-03-11 10:33:00 INFO  Service recovering - health check passed
+2024-03-11 10:35:00 INFO  All systems operational - incident duration: ~4 minutes

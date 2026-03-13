@@ -1,0 +1,57 @@
+2024-03-11 00:00:00.001 INFO  [notification-service] Starting NotificationService v2.1.4
+2024-03-11 00:00:00.112 INFO  [notification-service] Connected to RabbitMQ at rabbitmq:5672
+2024-03-11 00:00:00.223 INFO  [notification-service] Connected to SMTP relay at smtp-relay:587
+2024-03-11 00:00:00.334 INFO  [notification-service] Connected to Firebase FCM for push notifications
+2024-03-11 00:00:00.441 INFO  [notification-service] Worker pool initialized: 8 workers
+2024-03-11 00:00:00.552 INFO  [notification-service] Startup complete. Listening on queue: notifications
+2024-03-11 00:28:03.001 INFO  [notification-service] Processing batch: 89 email notifications
+2024-03-11 00:28:04.112 INFO  [notification-service] Email batch sent: 89/89 delivered (0 failed)
+2024-03-11 00:28:04.223 INFO  [notification-service] Queue depth: 0 messages
+2024-03-11 01:00:12.334 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 01:45:03.441 INFO  [notification-service] Processing batch: 12 email notifications
+2024-03-11 01:45:04.552 INFO  [notification-service] Email batch sent: 12/12 delivered
+2024-03-11 02:00:12.001 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 03:00:12.112 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 04:00:12.223 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 04:30:03.334 INFO  [notification-service] Processing batch: 7 email notifications
+2024-03-11 04:30:04.441 INFO  [notification-service] Email batch sent: 7/7 delivered
+2024-03-11 05:00:12.552 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 06:00:12.001 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 07:00:12.112 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 07:30:03.223 INFO  [notification-service] Processing batch: 44 email notifications
+2024-03-11 07:30:04.334 INFO  [notification-service] Email batch sent: 44/44 delivered
+2024-03-11 07:30:04.441 INFO  [notification-service] Sending 12 push notifications via FCM
+2024-03-11 07:30:05.552 INFO  [notification-service] FCM push notifications delivered: 12/12
+2024-03-11 08:00:12.001 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 09:00:12.112 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 10:00:12.223 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 11:00:03.334 INFO  [notification-service] Processing batch: 201 email notifications
+2024-03-11 11:00:05.441 INFO  [notification-service] Email batch sent: 201/201 delivered
+2024-03-11 11:00:05.552 INFO  [notification-service] Sending 89 push notifications via FCM
+2024-03-11 11:00:07.001 INFO  [notification-service] FCM push notifications delivered: 89/89
+2024-03-11 11:00:12.112 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 12:00:12.223 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 13:00:12.334 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 14:00:12.441 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 14:45:03.552 INFO  [notification-service] Processing batch: 178 email notifications
+2024-03-11 14:45:05.001 INFO  [notification-service] Email batch sent: 178/178 delivered
+2024-03-11 14:45:05.112 INFO  [notification-service] Sending 67 push notifications via FCM
+2024-03-11 14:45:07.223 INFO  [notification-service] FCM push notifications delivered: 67/67
+2024-03-11 15:00:12.334 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 16:00:12.441 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 17:00:12.552 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 18:00:03.001 INFO  [notification-service] Processing batch: 312 email notifications
+2024-03-11 18:00:06.112 INFO  [notification-service] Email batch sent: 312/312 delivered
+2024-03-11 18:00:06.223 INFO  [notification-service] Sending 134 push notifications via FCM
+2024-03-11 18:00:08.334 INFO  [notification-service] FCM push notifications delivered: 134/134
+2024-03-11 18:00:12.441 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 19:00:12.552 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 20:00:12.001 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 21:00:03.112 INFO  [notification-service] Processing batch: 89 email notifications
+2024-03-11 21:00:05.223 INFO  [notification-service] Email batch sent: 89/89 delivered
+2024-03-11 21:00:05.334 INFO  [notification-service] Sending 34 push notifications via FCM
+2024-03-11 21:00:07.441 INFO  [notification-service] FCM push notifications delivered: 34/34
+2024-03-11 21:00:12.552 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 22:00:12.001 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 23:00:12.112 INFO  [notification-service] Health check: OK (queue_depth=0, workers_active=8/8)
+2024-03-11 23:59:59.001 INFO  [notification-service] Daily summary: emails_sent=932 | push_sent=336 | delivery_rate=100% | queue_failures=0 | avg_processing_time=1.8s
