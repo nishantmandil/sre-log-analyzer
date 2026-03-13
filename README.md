@@ -65,6 +65,7 @@ Works with **Groq**, **Google Gemini**, **Anthropic Claude**, or a fully **local
 │  ▶ 📄 notification-service.log                       ✅ Clean   │
 └──────────────────────────────────────────────────────────────────┘
 ```
+<img width="1909" height="929" alt="image" src="https://github.com/user-attachments/assets/7fb419af-1542-4ace-b786-70c2ee26b059" />
 
 ---
 
